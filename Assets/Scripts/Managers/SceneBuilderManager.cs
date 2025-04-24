@@ -39,6 +39,17 @@ public class SceneBuilderManager : Singleton<SceneBuilderManager>,
         _sceneBuilderView.ShowSelectionView(renderData);
     }
 
+    private async void SpawnCharacter (CharacterAnimationSequenceData animData)
+    {
+        var charData = _characterDefinition.Definitions.FirstOrDefault(d=>d.Name == animData.Name);
+        var character =  await _resourceLoader.InstantiateAsyncGameObject<CharacterAnimationController>(charData.Asset, animData.Position, animData.Rotation, null);
+        var anim = character.GetComponent<Animator>();
+        anim.enabled = false;
+        anim.runtimeAnimatorController = charData.Animator;
+        character.SetData(animData);
+        _scenePlayer.RegisterActor(character);
+    }
+
     private CharacterSelectionRenderData CreateCharacterSelectionRenderData()
     {
         var renderData = new CharacterSelectionRenderData();
@@ -103,18 +114,13 @@ public class SceneBuilderManager : Singleton<SceneBuilderManager>,
         _sceneBuilderView.ShowAnimationView(renderData);
     }
 
-    private async void RespondToPlacingCharacter(Vector3 position, Quaternion rotation)
+    private void RespondToPlacingCharacter(Vector3 position, Quaternion rotation)
     {
         _sceneBuilderView.EnableDisableScenePlayerButton(true);
-        var character =  await _resourceLoader.InstantiateAsyncGameObject<CharacterAnimationController>(_currentCharacterData.Asset, position, rotation, null);
-        var anim = character.GetComponent<Animator>();
-        anim.enabled = false;
-        anim.runtimeAnimatorController = _currentCharacterData.Animator;
-        _sequenceData.Position = character.transform.position;
-        _sequenceData.Rotation = character.transform.rotation;
-        character.SetData(_sequenceData);
-        _scenePlayer.RegisterActor(character);
+        _sequenceData.Position = position;
+        _sequenceData.Rotation = rotation;
         _sceneData.AddActor(_sequenceData);
+        SpawnCharacter(_sequenceData);
     }
 
     public void RespondToAnimationChanged(int index, string name, ref AnimationSelectionRenderData renderData)
@@ -172,7 +178,7 @@ public class SceneBuilderManager : Singleton<SceneBuilderManager>,
     {
         _scenePlayer.Reset();
     }
-    public async void RespondToLoadButtonPressed()
+    public void RespondToLoadButtonPressed()
     {
         if (!_sceneLoader.HasSavedScene())
             return;
@@ -182,20 +188,8 @@ public class SceneBuilderManager : Singleton<SceneBuilderManager>,
         _sceneData = _sceneLoader.LoadScene();
         foreach (var actor in _sceneData.Actors)
         {
-            var charData = _characterDefinition.Definitions.FirstOrDefault(d=>d.Name == actor.Name);
-            var character =  await _resourceLoader.InstantiateAsyncGameObject<CharacterAnimationController>(charData.Asset, actor.Position, actor.Rotation, null);
-            var anim = character.GetComponent<Animator>();
-            anim.enabled = false;
-            anim.runtimeAnimatorController = charData.Animator;
-            var sequenceData = new CharacterAnimationSequenceData(actor.Name);
-            sequenceData.Position = actor.Position;
-            sequenceData.Rotation = actor.Rotation;
-            foreach (var animData in actor.Sequence)
-            {
-                sequenceData.AddAnimation(animData);
-            }
-            character.SetData(sequenceData);
-            _scenePlayer.RegisterActor(character);
+            SpawnCharacter(actor);
         }   
     }
+
 }

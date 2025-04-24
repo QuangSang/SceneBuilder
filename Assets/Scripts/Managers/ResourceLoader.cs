@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
-using Object = UnityEngine.Object;
 
 
 public class ResourceLoader
@@ -16,22 +15,6 @@ public class ResourceLoader
 
     public ResourceLoader()
     {
-    }
-
-    public async Task<T> InstantiateAsyncGameObject<T>(string key, Transform parent = null)
-    {
-        return await ProcessInstantiateAsyncGameObject<T>(Addressables.InstantiateAsync(key, parent), key);
-    }
-
-    public async Task<T> InstantiateAsyncGameObject<T>(
-        AssetReferenceGameObject goReference,
-        Transform parent = null
-    )
-    {
-        return await ProcessInstantiateAsyncGameObject<T>(
-            Addressables.InstantiateAsync(goReference, parent),
-            goReference.RuntimeKey.ToString()
-        );
     }
 
     public async Task<T> InstantiateAsyncGameObject<T>(
@@ -45,72 +28,6 @@ public class ResourceLoader
             Addressables.InstantiateAsync(goReference, position, rotation, parent),
             goReference.RuntimeKey.ToString()
         );
-    }
-
-    public bool IsEmpty()
-    {
-        return AssetHandles.Count == 0 && GameObjectHandles.Count == 0 && SceneHandles.Count == 0;
-    }
-
-    public async Task<T> LoadAssetAsync<T>(string key)
-    {
-        return await ProcessLoadAssetAsync(Addressables.LoadAssetAsync<T>(key), key);
-    }
-
-    public async Task<T> LoadAssetAsync<T>(AssetReference assetReference)
-    {
-        return await ProcessLoadAssetAsync(
-            Addressables.LoadAssetAsync<T>(assetReference),
-            assetReference.RuntimeKey.ToString()
-        );
-    }
-
-    public async Task ReleaseAll(bool applicationExiting = false)
-    {
-        // Release assets.
-        foreach (var assetHandle in AssetHandles)
-        {
-            if (CheckHandleOnRelease(assetHandle))
-            {
-                Addressables.Release(assetHandle);
-            }
-        }
-
-        AssetHandles.Clear();
-
-        // Release GO instances.
-        foreach (var goHandle in GameObjectHandles)
-        {
-            if (CheckHandleOnRelease(goHandle))
-            {
-                Addressables.ReleaseInstance(goHandle);
-            }
-        }
-
-        GameObjectHandles.Clear();
-    }
-
-    public void ReleaseAsset(Object asset)
-    {
-        AsyncOperationHandle assetHandle = default;
-
-        foreach (var handle in AssetHandles)
-        {
-            if ((Object)handle.Result == asset)
-            {
-                assetHandle = handle;
-
-                break;
-            }
-        }
-
-        ReleaseAssetHandle(assetHandle);
-    }
-
-    public void ReleaseAssetHandle(AsyncOperationHandle assetHandle)
-    {
-        AssetHandles.Remove(assetHandle);
-        Addressables.Release(assetHandle);
     }
 
     public void ReleaseGO(GameObject instance)
@@ -141,27 +58,6 @@ public class ResourceLoader
         Addressables.ReleaseInstance(goHandle);
     }
 
-    public bool TryRemoveHandleForGO(GameObject instance, out AsyncOperationHandle<GameObject> removedHandle)
-    {
-        removedHandle = new AsyncOperationHandle<GameObject>();
-
-        for (var index = GameObjectHandles.Count - 1; index >= 0; index--)
-        {
-            if (GameObjectHandles[index].Result != instance)
-            {
-                continue;
-            }
-
-            removedHandle = GameObjectHandles[index];
-
-            GameObjectHandles.RemoveAt(index);
-
-            return true;
-        }
-
-        return false;
-    }
-
     // Returns whether the handle is valid.
     private bool CheckHandleOnRelease(AsyncOperationHandle handle)
     {
@@ -180,14 +76,5 @@ public class ResourceLoader
         var result = await handle.Task;
 
         return result.GetComponent<T>();
-    }
-
-    private async Task<T> ProcessLoadAssetAsync<T>(AsyncOperationHandle<T> handle, string key)
-    {
-        AssetHandles.Add(handle);
-
-        var result = await handle.Task;
-
-        return result;
     }
 }
