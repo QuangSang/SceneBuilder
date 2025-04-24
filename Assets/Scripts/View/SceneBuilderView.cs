@@ -7,16 +7,25 @@ public class SceneBuilderView : MonoBehaviour
     [SerializeField] private AnimationTimelineView _animationView;
     [SerializeField] private Button _placeButton;
     [SerializeField] private RectTransform _moreButtonRT;
+    [SerializeField] private CanvasGroup _moreButtonCG;
     [SerializeField] private Button _addMoreButton;
     [SerializeField] private Button _playButton;
     [SerializeField] private Button _resetButton;
+    [SerializeField] private Button _clearButton;
+    [SerializeField] private Button _saveButton;
+    [SerializeField] private Button _loadButton;
+    [SerializeField] private Button _closeButton;
 
     public void SetData(SceneBuilderRenderData renderData)
     {
         _placeButton.onClick.AddListener(renderData.EventHandler.RespondToPlaceButtonPressed);
-        _addMoreButton.onClick.AddListener(renderData.EventHandler.RespondToAddMoreButtonPressed);
+        _addMoreButton.onClick.AddListener(Show);
         _playButton.onClick.AddListener(renderData.EventHandler.RespondToPlayButtonPressed);
         _resetButton.onClick.AddListener(renderData.EventHandler.RespondToResetButtonPressed);
+        _saveButton.onClick.AddListener(renderData.EventHandler.RespondToSaveButtonPressed);
+        _loadButton.onClick.AddListener(renderData.EventHandler.RespondToLoadButtonPressed);
+        _clearButton.onClick.AddListener(renderData.EventHandler.RespondToClearButtonPressed);
+        _closeButton.onClick.AddListener(Hide);
         EnableDisablePlaceButton(false);
     }
 
@@ -26,6 +35,10 @@ public class SceneBuilderView : MonoBehaviour
         _addMoreButton?.onClick.RemoveAllListeners();
         _playButton?.onClick.RemoveAllListeners();
         _resetButton?.onClick.RemoveAllListeners();
+        _saveButton?.onClick.RemoveAllListeners();
+        _loadButton?.onClick.RemoveAllListeners();
+        _clearButton?.onClick.RemoveAllListeners();
+        _closeButton?.onClick.RemoveAllListeners();
     }
     public void ShowSelectionView(CharacterSelectionRenderData renderData)
     {
@@ -44,6 +57,7 @@ public class SceneBuilderView : MonoBehaviour
     {
         gameObject.SetActive(false);
         _moreButtonRT.gameObject.SetActive(true);
+        EnableDisableScenePlayerButton(true);
     }
 
     public void Show()
@@ -62,6 +76,11 @@ public class SceneBuilderView : MonoBehaviour
         _placeButton.interactable = enabled;
     }
 
+    public void EnableDisableScenePlayerButton(bool enabled)
+    {
+        _moreButtonCG.interactable = enabled;
+    }
+
     public void HighlightSelectedCharacter(string name)
     {
         _selectionView.UpdateDim(name);
@@ -77,7 +96,9 @@ public class SceneBuilderRenderData
 public interface ISceneBuilderEventHandler
 {
     void RespondToPlaceButtonPressed();
-    void RespondToAddMoreButtonPressed();
     void RespondToPlayButtonPressed();
     void RespondToResetButtonPressed();
+    void RespondToSaveButtonPressed();
+    void RespondToLoadButtonPressed();
+    void RespondToClearButtonPressed();
 }

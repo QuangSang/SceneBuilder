@@ -6,6 +6,7 @@ public class ScenePlayerManager : Singleton<ScenePlayerManager>
 {
     private List<CharacterAnimationController> _actorList = new();
     private bool _isPlaying = false;
+    public bool IsPlaying => _isPlaying;
     private ResourceLoader _resourceLoader;
     public void Initialize(ResourceLoader resourceLoader)
     {
@@ -20,7 +21,6 @@ public class ScenePlayerManager : Singleton<ScenePlayerManager>
     {
         if (_isPlaying)
         {
-            Stop();
             return;
         }
 

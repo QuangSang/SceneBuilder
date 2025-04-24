@@ -8,6 +8,7 @@ public class CharacterAnimationController : MonoBehaviour
     [SerializeField] private int _currentIndex;
     private CharacterAnimationSequenceData _data;
     private Vector3 _originPosition;
+    private Quaternion _originRotation;
     private List<AnimationData> _sequence;
     private string _previousAnimation;
 
@@ -21,6 +22,7 @@ public class CharacterAnimationController : MonoBehaviour
     {
         _data = data;
         _originPosition = transform.position;
+        _originRotation = transform.rotation;
     }
 
     public void Play()
@@ -29,7 +31,7 @@ public class CharacterAnimationController : MonoBehaviour
             return; 
         if (_data.Sequence.Count <= 0)
             return;
-        _animator.enabled = true;
+            
         _sequence = new List<AnimationData>(_data.Sequence);
         _sequence.Sort((a,b)=>a.Time.CompareTo(b.Time));
         _currentTime = 0f;
@@ -39,6 +41,7 @@ public class CharacterAnimationController : MonoBehaviour
     public void Stop()
     {
         transform.position = _originPosition;
+        transform.rotation = _originRotation;
         _animator.StopPlayback();
         _animator.enabled = false;
         _currentTime = -1f;

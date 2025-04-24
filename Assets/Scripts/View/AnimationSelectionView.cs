@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements.Experimental;
 
 public class AnimationSelectionView : MonoBehaviour
 {
     [SerializeField] private TMP_Dropdown _dropDown;
     [SerializeField] private TMP_InputField _inputField;
-    [SerializeField] private Toggle _toggle;
     [SerializeField] private Button _removeButton;
     [SerializeField] private RectTransform _animLengthParentRT;
     [SerializeField] private RectTransform _animLengthRT;

@@ -39,7 +39,7 @@ public class FollowMouseComponent : MonoBehaviour
             UpdateRotation();
         }
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
         {
             _rightMouseClickCallback?.Invoke();
             _resourceLoader.ReleaseGO(gameObject);

@@ -16,12 +16,14 @@ public class SceneBuilderManager : Singleton<SceneBuilderManager>,
     private CharacterAnimationSequenceData _sequenceData;
     private ResourceLoader _resourceLoader;
     private ScenePlayerManager _scenePlayer;
+    private SceneLoader _sceneLoader;
     private SceneData _sceneData;
 
     protected override void Awake()
     {
         base.Awake();
         _resourceLoader = new ResourceLoader();
+        _sceneLoader = new SceneLoader();
         _sceneData = new SceneData();
         _scenePlayer = ScenePlayerManager.Instance;
         _scenePlayer.Initialize(_resourceLoader);
@@ -103,6 +105,7 @@ public class SceneBuilderManager : Singleton<SceneBuilderManager>,
 
     private async void RespondToPlacingCharacter(Vector3 position, Quaternion rotation)
     {
+        _sceneBuilderView.EnableDisableScenePlayerButton(true);
         var character =  await _resourceLoader.InstantiateAsyncGameObject<CharacterAnimationController>(_currentCharacterData.Asset, position, rotation, null);
         var anim = character.GetComponent<Animator>();
         anim.enabled = false;
@@ -124,6 +127,11 @@ public class SceneBuilderManager : Singleton<SceneBuilderManager>,
     public void RespondToAnimationDurationChanged(int index, float newDuration)
     {
         _sequenceData.UpdateAnimationDuration(index, newDuration);
+        if (newDuration > _maxAnimationDuration)
+        {
+            _maxAnimationDuration = Mathf.CeilToInt(newDuration) + 10;
+            RefreshAnimationView();
+        }
     }
 
     public async void RespondToPlaceButtonPressed()
@@ -132,6 +140,7 @@ public class SceneBuilderManager : Singleton<SceneBuilderManager>,
             return;
         
         _sceneBuilderView.Hide();
+        _sceneBuilderView.EnableDisableScenePlayerButton(false);
         var miniChar = await _resourceLoader.InstantiateAsyncGameObject<FollowMouseComponent>(_currentCharacterData.AssetMini, Vector3.zero, Quaternion.identity, null);
         miniChar.Initialize(_resourceLoader, RespondToPlacingCharacter, RespondToCancelPlacingCharacter);
         miniChar.enabled = true;
@@ -139,12 +148,7 @@ public class SceneBuilderManager : Singleton<SceneBuilderManager>,
 
     private void RespondToCancelPlacingCharacter()
     {
-
-    }
-
-    public void RespondToAddMoreButtonPressed()
-    {
-        _sceneBuilderView.Show();
+        _sceneBuilderView.EnableDisableScenePlayerButton(true);
     }
 
     public void RespondToPlayButtonPressed()
@@ -153,10 +157,45 @@ public class SceneBuilderManager : Singleton<SceneBuilderManager>,
     }
     public void RespondToResetButtonPressed()
     {
-        _scenePlayer.Reset();
+        _scenePlayer.Stop();
     }
     public void RespondToAnimationRemoved(int index)
     {
         _sequenceData.RemoveAnimation(index);
+    }
+    public void RespondToSaveButtonPressed()
+    {
+        _sceneLoader.SaveScene(_sceneData);
+    }
+
+    public void RespondToClearButtonPressed()
+    {
+        _scenePlayer.Reset();
+    }
+    public async void RespondToLoadButtonPressed()
+    {
+        if (!_sceneLoader.HasSavedScene())
+            return;
+
+        _scenePlayer.Reset();
+        _sceneBuilderView.Hide();
+        _sceneData = _sceneLoader.LoadScene();
+        foreach (var actor in _sceneData.Actors)
+        {
+            var charData = _characterDefinition.Definitions.FirstOrDefault(d=>d.Name == actor.Name);
+            var character =  await _resourceLoader.InstantiateAsyncGameObject<CharacterAnimationController>(charData.Asset, actor.Position, actor.Rotation, null);
+            var anim = character.GetComponent<Animator>();
+            anim.enabled = false;
+            anim.runtimeAnimatorController = charData.Animator;
+            var sequenceData = new CharacterAnimationSequenceData(actor.Name);
+            sequenceData.Position = actor.Position;
+            sequenceData.Rotation = actor.Rotation;
+            foreach (var animData in actor.Sequence)
+            {
+                sequenceData.AddAnimation(animData);
+            }
+            character.SetData(sequenceData);
+            _scenePlayer.RegisterActor(character);
+        }   
     }
 }

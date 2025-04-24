@@ -10,6 +10,7 @@ public class AnimationTimelineView : MonoBehaviour
     [SerializeField]private Button _addButton;
     [SerializeField]private AnimationSelectionView _animationSelectionPrefab;
     private AnimationSequenceRenderData _data;
+    private List<AnimationSelectionView> _animationViews = new();
     public void SetData(AnimationSequenceRenderData data)
     {
         _data = data;
@@ -27,6 +28,7 @@ public class AnimationTimelineView : MonoBehaviour
             view.transform.SetParent(_content);
             view.transform.SetAsLastSibling();
             view.SetData(_data.Timeline[i]);
+            _animationViews.Add(view);
         }
         _buttonRT.SetAsLastSibling();
         _addButton.onClick.AddListener(_data.EventHandler.RespondToAddAnimation);

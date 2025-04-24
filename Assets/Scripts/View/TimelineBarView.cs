@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class TimelineBarView : MonoBehaviour
@@ -5,6 +6,7 @@ public class TimelineBarView : MonoBehaviour
     [SerializeField]private ScaleBarView _scaleBarPrefab;
     private RectTransform _thisRT;
     private bool _initialized = false;
+    private int _currentSegment;
 
     void Awake()
     {
@@ -13,8 +15,15 @@ public class TimelineBarView : MonoBehaviour
 
     public void Initialize(int segmentsAmount)
     {
-        if (_initialized)
+        if(_currentSegment == segmentsAmount)
+        {
             return;
+        }
+
+        foreach (RectTransform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
           
         for (var i = 0; i<segmentsAmount; i++)
         {
