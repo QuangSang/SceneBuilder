@@ -30,11 +30,8 @@ Demo:
 https://youtu.be/OSZW3lwVyR4
 
 Features:
-
-  - Character selection: select a character, add animation sequence with some timeline visualization, place it onto the scene with rotation
-
+  - Character selection: select a character, add animation sequence with some timeline visualization, place it onto the scene with rotation (you can right click or ESC while you're on a placing state to cancel)
   - Play/Reset/Clear a scene
-
   - Save/Load a scene
 
 Extensibility:
@@ -43,9 +40,12 @@ Extensibility:
   - CharacterAnimationController is a monobehaviour component that is responsible for playing the animation sequence of a character. We could probably create other components to handle different objects
 
 Things I would improve if I had more time:
-  - Renamed SceneBuilderManager -> CharacterBuilderManager
   - Use DI frame (VContainer) to manager all dependencies and organize the codebase cleaner.
   - Create a unique ID for each characters and reference them by that Id instead of name
+  - Use DOTween to tween UI
+  - Add elapsed time onto the scene
   - Use Cinemachine package to handle camera controls
   - Use Animancer package for playing/sequencing animation instead of built-in Animator
   - Add visual improvement (lightning, ...)
+  - Rename SceneBuilderManager -> CharacterBuilderManager
+  - Make naming convention more consistent (Character vs Actor)
