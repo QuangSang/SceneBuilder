@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Data class that represent a scene. Can be extended to include props, building, ...
+/// </summary>
 [Serializable]
 public class SceneData
 {

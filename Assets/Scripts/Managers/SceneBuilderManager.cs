@@ -2,6 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/// <summary>
+/// Top level manager class for the scene builder. Responsible for:
+///     - Initializing the UI
+///     - Updating the scene data
+///     - Spawning characters
+/// </summary>
 public class SceneBuilderManager : Singleton<SceneBuilderManager>,  
                                     ICharacterAvatarEventHandler, 
                                     IAnimationTimelineEventHandler, 
@@ -25,8 +31,7 @@ public class SceneBuilderManager : Singleton<SceneBuilderManager>,
         _resourceLoader = new ResourceLoader();
         _sceneLoader = new SceneLoader();
         _sceneData = new SceneData();
-        _scenePlayer = ScenePlayerManager.Instance;
-        _scenePlayer.Initialize(_resourceLoader);
+        _scenePlayer = new ScenePlayerManager(_resourceLoader);
     }
 
     void Start()
@@ -87,7 +92,7 @@ public class SceneBuilderManager : Singleton<SceneBuilderManager>,
     }
 
 
-    public void RespondToCharacterAvatarPressed(string name)
+    void ICharacterAvatarEventHandler.RespondToCharacterAvatarPressed(string name)
     {
         _currentCharacterData = _characterDefinition.Definitions.FirstOrDefault(d=>d.Name == name);
         _sequenceData = new CharacterAnimationSequenceData(name);
@@ -95,7 +100,7 @@ public class SceneBuilderManager : Singleton<SceneBuilderManager>,
         _sceneBuilderView.HighlightSelectedCharacter(name);
     }
 
-    public void RespondToAddAnimation()
+    void IAnimationTimelineEventHandler.RespondToAddAnimation()
     {
         var animNames = _currentCharacterData.GetAnimationNames();
         _sequenceData.AddAnimation (new AnimationData{
@@ -113,24 +118,16 @@ public class SceneBuilderManager : Singleton<SceneBuilderManager>,
         var renderData = CreateAnimationSequenceRenderData();
         _sceneBuilderView.ShowAnimationView(renderData);
     }
+    
 
-    private void RespondToPlacingCharacter(Vector3 position, Quaternion rotation)
-    {
-        _sceneBuilderView.EnableDisableScenePlayerButton(true);
-        _sequenceData.Position = position;
-        _sequenceData.Rotation = rotation;
-        _sceneData.AddActor(_sequenceData);
-        SpawnCharacter(_sequenceData);
-    }
-
-    public void RespondToAnimationChanged(int index, string name, ref AnimationSelectionRenderData renderData)
+    void IAnimationSelectionEventHandler.RespondToAnimationChanged(int index, string name, ref AnimationSelectionRenderData renderData)
     {
         _sequenceData.UpdateAnimationName(index, name);
         renderData.Name = name;
         renderData.Length = _currentCharacterData.GetAnimationLength(name);
     }
 
-    public void RespondToAnimationDurationChanged(int index, float newDuration)
+    void IAnimationSelectionEventHandler.RespondToAnimationDurationChanged(int index, float newDuration)
     {
         _sequenceData.UpdateAnimationDuration(index, newDuration);
         if (newDuration > _maxAnimationDuration)
@@ -140,7 +137,12 @@ public class SceneBuilderManager : Singleton<SceneBuilderManager>,
         }
     }
 
-    public async void RespondToPlaceButtonPressed()
+    void IAnimationSelectionEventHandler.RespondToAnimationRemoved(int index)
+    {
+        _sequenceData.RemoveAnimation(index);
+    }
+
+    async void ISceneBuilderEventHandler.RespondToPlaceButtonPressed()
     {
         if (_currentCharacterData == null)
             return;
@@ -152,33 +154,39 @@ public class SceneBuilderManager : Singleton<SceneBuilderManager>,
         miniChar.enabled = true;
     }
 
-    private void RespondToCancelPlacingCharacter()
+    void RespondToPlacingCharacter(Vector3 position, Quaternion rotation)
+    {
+        _sceneBuilderView.EnableDisableScenePlayerButton(true);
+        _sequenceData.Position = position;
+        _sequenceData.Rotation = rotation;
+        _sceneData.AddActor(_sequenceData);
+        SpawnCharacter(_sequenceData);
+    }
+
+    void RespondToCancelPlacingCharacter()
     {
         _sceneBuilderView.EnableDisableScenePlayerButton(true);
     }
 
-    public void RespondToPlayButtonPressed()
+    void ISceneBuilderEventHandler.RespondToPlayButtonPressed()
     {
         _scenePlayer.Play();
     }
-    public void RespondToResetButtonPressed()
+    void ISceneBuilderEventHandler.RespondToResetButtonPressed()
     {
         _scenePlayer.Stop();
     }
-    public void RespondToAnimationRemoved(int index)
-    {
-        _sequenceData.RemoveAnimation(index);
-    }
-    public void RespondToSaveButtonPressed()
+    
+    void ISceneBuilderEventHandler.RespondToSaveButtonPressed()
     {
         _sceneLoader.SaveScene(_sceneData);
     }
 
-    public void RespondToClearButtonPressed()
+    void ISceneBuilderEventHandler.RespondToClearButtonPressed()
     {
         _scenePlayer.Reset();
     }
-    public void RespondToLoadButtonPressed()
+    void ISceneBuilderEventHandler.RespondToLoadButtonPressed()
     {
         if (!_sceneLoader.HasSavedScene())
             return;

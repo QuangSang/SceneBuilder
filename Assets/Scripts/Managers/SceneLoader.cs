@@ -1,6 +1,9 @@
 using System.IO;
 using UnityEngine;
 
+/// <summary>
+/// Responsible for saving/loading the scene
+/// </summary>
 public class SceneLoader
 {
     private const string FILE_NAME = "scene.json";

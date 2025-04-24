@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
+
+/// <summary>
+/// Scriptable object that holds the definition of all the characters
+/// </summary>
 [CreateAssetMenu(fileName = "CharacterDefinition", menuName = "CharacterDefinition")]
 public class CharacterDefinition : ScriptableObject
 {

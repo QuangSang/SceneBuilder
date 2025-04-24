@@ -3176,7 +3176,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1487104489}
   - component: {fileID: 1487104491}
-  - component: {fileID: 1487104492}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -3214,18 +3213,6 @@ MonoBehaviour:
   _characterDefinition: {fileID: 11400000, guid: 4018962c6f60e934cafc4fd4d9f8f7cd, type: 2}
   _sceneBuilderView: {fileID: 1330126115}
   _maxAnimationDuration: 20
---- !u!114 &1487104492
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1487104487}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4364b7fa48a945b4babdd7012805e342, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1650372071
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,9 @@ using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using UnityEngine.ResourceManagement.ResourceProviders;
 
-
+/// <summary>
+/// Responsible for loading asset from Addressables
+/// </summary>
 public class ResourceLoader
 {
     private List<AsyncOperationHandle> AssetHandles { get; } = new();
@@ -58,7 +60,6 @@ public class ResourceLoader
         Addressables.ReleaseInstance(goHandle);
     }
 
-    // Returns whether the handle is valid.
     private bool CheckHandleOnRelease(AsyncOperationHandle handle)
     {
         if (!handle.IsValid())

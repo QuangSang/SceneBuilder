@@ -1,6 +1,9 @@
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+/// UI class that populate the timeline bar
+/// </summary>
 public class TimelineBarView : MonoBehaviour
 {
     [SerializeField]private ScaleBarView _scaleBarPrefab;

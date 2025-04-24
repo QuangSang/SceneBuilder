@@ -2,6 +2,9 @@ using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 
+/// <summary>
+/// a component to place a character into the scene
+/// </summary>
 public class FollowMouseComponent : MonoBehaviour
 {
     public enum PlacingState

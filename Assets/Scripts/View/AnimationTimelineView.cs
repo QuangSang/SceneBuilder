@@ -2,6 +2,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public class AnimationSequenceRenderData
+{
+    public int MaxAnimationDuration;
+    public List<AnimationSelectionRenderData> Timeline = new();
+    public IAnimationTimelineEventHandler EventHandler;
+}
+
+public interface IAnimationTimelineEventHandler
+{
+    void RespondToAddAnimation();
+}
+
+/// <summary>
+/// UI class that handles the animation view
+/// </summary>
+
 public class AnimationTimelineView : MonoBehaviour
 {
     [SerializeField]private TimelineBarView _timelineView;
@@ -40,14 +56,4 @@ public class AnimationTimelineView : MonoBehaviour
     }
 }
 
-public class AnimationSequenceRenderData
-{
-    public int MaxAnimationDuration;
-    public List<AnimationSelectionRenderData> Timeline = new();
-    public IAnimationTimelineEventHandler EventHandler;
-}
 
-public interface IAnimationTimelineEventHandler
-{
-    void RespondToAddAnimation();
-}

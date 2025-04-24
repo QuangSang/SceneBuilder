@@ -1,6 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public struct CharacterSelectionRenderData
+{
+    public List<string> CharacterNames;
+    public ICharacterAvatarEventHandler EventHandler;
+}
+/// <summary>
+/// UI class that display all available characters
+/// </summary>
 public class CharacterSelectionView : MonoBehaviour
 {
     [SerializeField]private CharacterAvatarView _characterAvatarPrefab;
@@ -43,8 +51,4 @@ public class CharacterSelectionView : MonoBehaviour
     }
 }
 
-public struct CharacterSelectionRenderData
-{
-    public List<string> CharacterNames;
-    public ICharacterAvatarEventHandler EventHandler;
-}
+

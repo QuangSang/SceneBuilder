@@ -3,8 +3,28 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements.Experimental;
 
+public class AnimationSelectionRenderData
+{
+    public List<string> AnimationNames;
+    public string Name;
+    public float Time;
+    public float Length;
+    public int Index;
+    public int MaxDuration;
+    public IAnimationSelectionEventHandler EventHandler;
+}
+
+public interface IAnimationSelectionEventHandler
+{
+    void RespondToAnimationChanged(int index, string name, ref AnimationSelectionRenderData data);
+    void RespondToAnimationDurationChanged (int index, float newDuration);
+    void RespondToAnimationRemoved(int index);
+}
+
+/// <summary>
+/// UI class that updates the view for changing animation, time
+/// </summary>
 public class AnimationSelectionView : MonoBehaviour
 {
     [SerializeField] private TMP_Dropdown _dropDown;
@@ -82,20 +102,4 @@ public class AnimationSelectionView : MonoBehaviour
     }
 }
 
-public class AnimationSelectionRenderData
-{
-    public List<string> AnimationNames;
-    public string Name;
-    public float Time;
-    public float Length;
-    public int Index;
-    public int MaxDuration;
-    public IAnimationSelectionEventHandler EventHandler;
-}
 
-public interface IAnimationSelectionEventHandler
-{
-    void RespondToAnimationChanged(int index, string name, ref AnimationSelectionRenderData data);
-    void RespondToAnimationDurationChanged (int index, float newDuration);
-    void RespondToAnimationRemoved(int index);
-}

@@ -1,14 +1,16 @@
 using System.Collections.Generic;
-using NUnit.Framework.Interfaces;
-using UnityEngine;
 
-public class ScenePlayerManager : Singleton<ScenePlayerManager>
+
+/// <summary>
+/// Manager class responsible for playing the scene
+/// </summary>
+public class ScenePlayerManager
 {
     private List<CharacterAnimationController> _actorList = new();
     private bool _isPlaying = false;
     public bool IsPlaying => _isPlaying;
     private ResourceLoader _resourceLoader;
-    public void Initialize(ResourceLoader resourceLoader)
+    public ScenePlayerManager(ResourceLoader resourceLoader)
     {
         _resourceLoader = resourceLoader;
     }

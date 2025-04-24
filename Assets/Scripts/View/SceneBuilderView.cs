@@ -1,6 +1,22 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+public class SceneBuilderRenderData
+{
+    public int MaxAnimationDuration;
+    public ISceneBuilderEventHandler EventHandler;
+}
+
+public interface ISceneBuilderEventHandler
+{
+    void RespondToPlaceButtonPressed();
+    void RespondToPlayButtonPressed();
+    void RespondToResetButtonPressed();
+    void RespondToSaveButtonPressed();
+    void RespondToLoadButtonPressed();
+    void RespondToClearButtonPressed();
+}
+
 public class SceneBuilderView : MonoBehaviour
 {
     [SerializeField] private CharacterSelectionView _selectionView;
@@ -85,20 +101,4 @@ public class SceneBuilderView : MonoBehaviour
     {
         _selectionView.UpdateDim(name);
     }
-}
-
-public class SceneBuilderRenderData
-{
-    public int MaxAnimationDuration;
-    public ISceneBuilderEventHandler EventHandler;
-}
-
-public interface ISceneBuilderEventHandler
-{
-    void RespondToPlaceButtonPressed();
-    void RespondToPlayButtonPressed();
-    void RespondToResetButtonPressed();
-    void RespondToSaveButtonPressed();
-    void RespondToLoadButtonPressed();
-    void RespondToClearButtonPressed();
 }

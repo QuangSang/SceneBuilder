@@ -2,6 +2,21 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public struct CharacterAvatarRenderData
+{
+    public string Name;
+    public ICharacterAvatarEventHandler EventHandler;
+}
+
+public interface ICharacterAvatarEventHandler
+{
+    void RespondToCharacterAvatarPressed(string name);
+}
+
+/// <summary>
+/// UI class that updates the view of the character button
+/// </summary>
+
 public class CharacterAvatarView : MonoBehaviour
 {
     [SerializeField] private TMP_Text _label;
@@ -41,13 +56,4 @@ public class CharacterAvatarView : MonoBehaviour
     
 }
 
-public struct CharacterAvatarRenderData
-{
-    public string Name;
-    public ICharacterAvatarEventHandler EventHandler;
-}
 
-public interface ICharacterAvatarEventHandler
-{
-    void RespondToCharacterAvatarPressed(string name);
-}

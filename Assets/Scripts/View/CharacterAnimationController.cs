@@ -1,6 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/// <summary>
+/// a Component that is responsible for playing the character animtions
+/// </summary>
 public class CharacterAnimationController : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
@@ -31,7 +35,7 @@ public class CharacterAnimationController : MonoBehaviour
             return; 
         if (_data.Sequence.Count <= 0)
             return;
-            
+
         _sequence = new List<AnimationData>(_data.Sequence);
         _sequence.Sort((a,b)=>a.Time.CompareTo(b.Time));
         _currentTime = 0f;
