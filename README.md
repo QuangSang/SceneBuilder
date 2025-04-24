@@ -1,4 +1,4 @@
-I am using MVC architecture for this project.
+I am using MVC architecture for this project. Note: I am using the Name to reference each character for simplicity but in real project it should be an a unique Id
 
   Controllers:
   
@@ -28,11 +28,11 @@ I am using MVC architecture for this project.
   
     - CharacterDefinition: a scriptable object that store the defintions of all characters (name, AssetReference, AnimationController that contains all available animations)
     
-    - SceneData: a serializable data class that holds all characters in the scene
+    - SceneData: a serializable runtime data class that holds all characters in the scene
     
-    - CharacterAnimationSequenceData: a serializable data class that holds the animation sequence of a character.
+    - CharacterAnimationSequenceData: a serializable runtime data class that holds the animation sequence of a character.
     
-    - AnimationData: a serializable data class that holds the animation data.
+    - AnimationData: a serializable runtime data class that holds the animation data.
     
     - RenderData: a list of all RenderData for each views
     
@@ -48,12 +48,22 @@ https://youtu.be/OSZW3lwVyR4
 
 Features:
 
-  - Character selection: select a character, add animation sequence with some timeline visualization, place it onto the scene.
+  - Character selection: select a character, add animation sequence with some timeline visualization, place it onto the scene with rotation
 
-  - Play a scene
-
-  - Reset a scene
-
-  - Clear a scene
+  - Play/Reset/Clear a scene
 
   - Save/Load a scene
+
+Extensibility:
+  - We can create different Definition ScriptableObjects to store the definition of other type of objects that we want to put into the scene and we should have different manager classes for each type of objects.( Maybe I should rename SceneBuilderManager into CharacterBuilderManager because it is specific to characters only).
+  - SceneData is a runtime data class that represents the entire scene. Right now it only has a list of all the characters animation sequence but we can add some data into it for other objects and load them using its respective manager
+  - CharacterAnimationController is a monobehaviour component that is responsible for playing the animation sequence of a character. We could probably create other components to handle different objects
+
+
+Things I would improve if I had more time:
+  - Renamed SceneBuilderManager -> CharacterBuilderManager
+  - Use DI frame (VContainer) to manager all dependencies and organize the codebase cleaner.
+  - Create a unique ID for each characters and reference them by that Id instead of name
+  - Use Cinemachine package to handle camera controls
+  - Use Animancer package for playing/sequencing animation instead of built-in Animator
+  - Add visual improvement (lightning, ...)
