@@ -1,7 +1,9 @@
+Built with Unity 6 (6000.0.44f1)
+
 Architecture: I am using MVC architecture for this project. Note: I am using the Name to reference each character for simplicity but in real project it should be an a unique Id
 
   - Controllers:
-    - SceneBuilderManager : top level manager that is responsible for initializing the UIs, updating the scene data, spawning characters, containing all button click handler. It also has references to all other managers
+    - **SceneBuilderManager** : top level manager that is responsible for initializing the UIs, updating the scene data, spawning characters, containing all button click handler. It also has references to all other managers
     - ScenePlayerManager: responsible for playing the scene
     - ResourceLoader: responsible for loading asset from Addressables
     - SceneLoader : responsbible for saving/loading a scene
@@ -13,7 +15,7 @@ Architecture: I am using MVC architecture for this project. Note: I am using the
     - AnimationTimelineView : UI class that is responsible for displaying the animation timeline
     - AnimationSelectionView: UI class that is responsible for displaying a single animation
     - TimelineBarView: UI class that is responsible for populating the timeline visualizaiton
-    - 
+    
   - Data:
     - CharacterDefinition: a scriptable object that store the defintions of all characters (name, AssetReference, AnimationController that contains all available animations)
     - SceneData: a serializable runtime data class that holds all characters in the scene
