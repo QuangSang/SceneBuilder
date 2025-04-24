@@ -41,7 +41,7 @@ Features:
 
 Extensibility:
   - We can create different Definition ScriptableObjects to store the definition of other type of objects that we want to put into the scene and we should have different manager classes for each type of objects.( Maybe I should rename SceneBuilderManager into CharacterBuilderManager because it is specific to characters only).
-  - SceneData is a runtime data class that represents the entire scene. Right now it only has a list of all the characters animation sequence but we can add some data into it for other objects and load them using its respective manager
+  - SceneData is a runtime data class that represents the entire scene. Right now it only has a list of all the characters animation sequence (CharacterAnimationSequenceData) but we can add some data into it for other objects and load them using its respective manager
   - CharacterAnimationController is a monobehaviour component that is responsible for playing the animation sequence of a character. We could probably create other components to handle different objects
 
 Things I would improve if I had more time:
