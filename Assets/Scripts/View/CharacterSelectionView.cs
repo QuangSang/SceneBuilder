@@ -19,7 +19,7 @@ public class CharacterSelectionView : MonoBehaviour
                 EventHandler = data.EventHandler,
             };
             var charView = Instantiate(_characterAvatarPrefab).GetComponent<CharacterAvatarView>();
-            charView.transform.SetParent(_content);
+            charView.transform.SetParent(_content, false);
             charView.SetData(charRenderData);
             _views.Add(charView);
         }

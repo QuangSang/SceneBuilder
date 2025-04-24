@@ -29,7 +29,7 @@ public class TimelineBarView : MonoBehaviour
         {
             var go = Instantiate(_scaleBarPrefab);
             go.SetData(new ScaleBarRenderData{Number = i});
-            go.transform.SetParent(transform);
+            go.transform.SetParent(transform, false);
         }
         _initialized = true;
     }

@@ -25,7 +25,7 @@ public class AnimationTimelineView : MonoBehaviour
         for(int i = 0; i< _data.Timeline.Count ; i++)
         {
             var view = Instantiate(_animationSelectionPrefab);
-            view.transform.SetParent(_content);
+            view.transform.SetParent(_content, false);
             view.transform.SetAsLastSibling();
             view.SetData(_data.Timeline[i]);
             _animationViews.Add(view);
