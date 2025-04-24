@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c9a3bf275552e44790c72e88c85ec8b, type: 3}
+  m_Name: CharacterDefinition
+  m_EditorClassIdentifier: 
+  Definitions:
+  - Name: Jane
+    Asset:
+      m_AssetGUID: 6c4184b6925259b4f9a6dd3c401ba42c
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    AssetMini:
+      m_AssetGUID: bb772c06d2fb6274183f4922b58c1889
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    Animator: {fileID: 9100000, guid: cab9b927e297b9149bf8df59697df6c7, type: 2}
+  - Name: Remy
+    Asset:
+      m_AssetGUID: 8f0f5a4357da0bd468279a6700f5deac
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    AssetMini:
+      m_AssetGUID: 40d8392a15eb6044a837c590c45b0ee9
+      m_SubObjectName: 
+      m_SubObjectType: 
+      m_SubObjectGUID: 
+      m_EditorAssetChanged: 0
+    Animator: {fileID: 9100000, guid: 49b74c20772f496469459baafe69a34a, type: 2}

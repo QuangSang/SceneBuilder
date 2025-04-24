@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Characters
+  m_EditorClassIdentifier: 
+  m_GroupName: Characters
+  m_GUID: 67af0bcddd816d5479541903aca9ec6a
+  m_SerializeEntries:
+  - m_GUID: 40d8392a15eb6044a837c590c45b0ee9
+    m_Address: Remy_Mini
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6c4184b6925259b4f9a6dd3c401ba42c
+    m_Address: Jane
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8f0f5a4357da0bd468279a6700f5deac
+    m_Address: Remy
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: bb772c06d2fb6274183f4922b58c1889
+    m_Address: Jane_Mini
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: d761bdfaa7f5e1d46bc1510d9493daac, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 7c478ff5a9117ab49bd80d89ef6b8e10, type: 2}
+    - {fileID: 11400000, guid: 9a14ce342160a1847a6c83154e931be3, type: 2}
