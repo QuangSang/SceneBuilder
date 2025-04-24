@@ -29,6 +29,9 @@ Architecture: I am using MVC architecture for this project. Note: I am using the
 Demo:
 https://youtu.be/OSZW3lwVyR4
 
+Added UI timeline drag:
+https://www.youtube.com/shorts/iHhiWKwf8Ec 
+
 Features:
   - Character selection: select a character, add animation sequence with some timeline visualization, place it onto the scene with rotation (you can right click or ESC while you're on a placing state to cancel)
   - Play/Reset/Clear a scene
@@ -42,7 +45,6 @@ Extensibility:
 Things I would improve if I had more time:
   - Use DI frame (VContainer) to manager all dependencies and organize the codebase cleaner.
   - Create a unique ID for each characters and reference them by that Id instead of name
-  - Improve the timeline UI, make the block draggable for better UX
   - Use DOTween to tween UI
   - Add elapsed time onto the scene
   - Use Cinemachine package to handle camera controls
