@@ -42,6 +42,7 @@ Extensibility:
 Things I would improve if I had more time:
   - Use DI frame (VContainer) to manager all dependencies and organize the codebase cleaner.
   - Create a unique ID for each characters and reference them by that Id instead of name
+  - Improve the timeline UI, make the block draggable for better UX
   - Use DOTween to tween UI
   - Add elapsed time onto the scene
   - Use Cinemachine package to handle camera controls
