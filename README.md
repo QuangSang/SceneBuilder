@@ -42,3 +42,6 @@ I am using MVC architecture for this project.
     
     - CharacterAnimationController: a component used for playing the animation sequence of a character
     
+
+Demo:
+https://youtu.be/OSZW3lwVyR4
