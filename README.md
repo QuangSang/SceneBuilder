@@ -2,7 +2,7 @@ I am using MVC architecture for this project.
 
   Controllers:
   
-    - SceneBuilderManager : top level manager that is responsible for initializing the UIs, updating the scene data, spawning characters, handling all button click events. It also has references to all other managers
+    - SceneBuilderManager : top level manager that is responsible for initializing the UIs, updating the scene data, spawning characters, containing all button click handler. It also has references to all other managers
     
     - ScenePlayerManager: responsible for playing the scene
     
@@ -45,3 +45,15 @@ I am using MVC architecture for this project.
 
 Demo:
 https://youtu.be/OSZW3lwVyR4
+
+Features:
+
+  - Character selection: select a character, add animation sequence with some timeline visualization, place it onto the scene.
+
+  - Play a scene
+
+  - Reset a scene
+
+  - Clear a scene
+
+  - Save/Load a scene
