@@ -430,6 +430,7 @@ GameObject:
   - component: {fileID: 692615454531644641}
   - component: {fileID: 8117869198825746504}
   - component: {fileID: 5023540425754404309}
+  - component: {fileID: 527584776599338206}
   m_Layer: 5
   m_Name: AnimationLengthPanel
   m_TagString: Untagged
@@ -494,6 +495,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &527584776599338206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1445129740470935332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5c5c282a4531b542ad91ec1e4cec66a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1956412247929064059
 GameObject:
   m_ObjectHideFlags: 0
@@ -1664,9 +1677,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03cece122d590d44e81faf8cbb213ac4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animationClipBlockView: {fileID: 527584776599338206}
   _dropDown: {fileID: 7648795015425171602}
   _inputField: {fileID: 251525670767459609}
-  _toggle: {fileID: 0}
   _removeButton: {fileID: 1970160015699888065}
   _animLengthParentRT: {fileID: 5659719133436436025}
   _animLengthRT: {fileID: 692615454531644641}
