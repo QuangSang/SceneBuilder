@@ -1,4 +1,5 @@
 Built with Unity 6 (6000.0.44f1)
+Works best on landscape mode (1920x1080)
 
 Architecture: I am using MVC architecture for this project. Note: I am using the Name to reference each character for simplicity but in real project it should be an a unique Id
 
